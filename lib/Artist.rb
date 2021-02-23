@@ -1,7 +1,10 @@
 require 'pry'
 
 class Artist
-    attr_accessor :name, :songs
+  extend Concerns::Findable
+
+    attr_accessor :name
+    attr_reader :songs
 
     @@all = []
 
@@ -19,10 +22,10 @@ class Artist
   end
 
   def save
-    @@all << self
+    self.class.all << self
   end
 
-  def self.create(artist)
+  def self.create(name)
     new(name).tap {|artist| artist.save}
   end
 
